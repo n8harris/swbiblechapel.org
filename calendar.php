@@ -23,11 +23,14 @@
 		</div><!-- /container -->
 <div class="container marketing feat-cal">
 	<div class="featurette-cal">
-				<h2 class="featurette-heading">Adding Events <span class="text-orange">to Calendar</span></h2>
-				<p class="lead">
-					To add events to the calendar, please contact the church office at (207)-247-6293 or contact us via our online form:
-				</p>
-				<p class="lead"><a data-toggle="modal" href="#contact-modal" id="secretary-contact" class="btn btn-lg btn-primary" title="Contact Us">Contact Us</a></p>
+		<?php
+		include('directus-connect.php');
+		$section = $client->getItems('calendar_events_section')->getData()[0];
+		$staffMemberEmail = $client->getItem('staff_members', $section['staff_member_to_contact']->getData()['id'])->getData()['email'];
+		echo '<h2 class="featurette-heading">' . $section['heading'] . '</span></h2>';
+		echo '<p class="lead">' . $section['content'] . '</p>';
+		echo '<p class="lead"><a data-toggle="modal" href="#contact-modal" data-contact-email="' . $staffMemberEmail . '" class="btn btn-lg btn-primary contact-person" title="Contact Us">Contact Us</a></p>';
+		?>
 	</div>
 </div>
 

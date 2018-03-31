@@ -133,12 +133,35 @@ video {
   
 }
 
+.circle-img {
+	display: inline;
+	margin: 0 auto;
+	height: 100%;
+	width: auto;
+}
+
+.circle-crop {
+	width: 350px;
+	height: 350px;
+	position: relative;
+	overflow: hidden;
+	border-radius: 50%;
+}
+
+.center-circle-image {
+	margin: 0 auto;
+}
+
+@media (max-width: 767px) {
+	.circle-crop {
+		width: 250px !important;
+		height: 250px;
+	}
+}
+
 @media (max-width: 767px) {
 	.contact-mobile { display: block !important; }
 	.contact-mobile:active { background: #404040 !important; }
-	.audio-image{
-		width: 200px;
-	}
 	
 	.not-found-image{
 		width: 200px;
@@ -571,7 +594,34 @@ margin-bottom: -88px;
 width: 100%;
 }
 
+.featurette.staff p {
+	margin-bottom: 20px;
+	font-size: 16px;
+	font-weight: 200;
+	line-height: 1.4;
+}
+
+.featurette.staff {
+	overflow: hidden;
+}
+
+@media(max-width: 767px){
+	.featurette.staff .circle-crop {
+		float: none !important;
+		margin: 0 auto;
+	}
+}
+
 @media(min-width: 768px){
+
+	.featurette.staff p {
+		font-size: 21px;
+	}
+
+	.featurette.staff .circle-crop {
+		float: inherit;
+		margin: 20px;
+	}
 	.feat-cal {
 		padding-left: 50px;
 	}
@@ -972,7 +1022,7 @@ a.mike:hover {
 
 .modal.fade .modal-dialog.modal-calendar {
       -webkit-transform: translate(0, 0);
-      -ms-transform: translate(0, 0); // IE9 only
+      -ms-transform: translate(0, 0);
           transform: translate(0, 0);
 
  }

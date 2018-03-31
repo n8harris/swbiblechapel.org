@@ -6,7 +6,7 @@ if(!empty($_GET['year'])){
 <?php include('head.php') ?>
 <?php include('navigation.php') ?>
 <?php include('carousel.php') ?>
-<?php include('database-connect.php') ?>
+<?php include('directus-connect.php') ?>
 <div class="main-body">
 <h2 class="page-heading"><?php
 	if(!empty($_GET['year'])){
@@ -25,52 +25,49 @@ if(!empty($_GET['year'])){
 			if($sermonYear == ''){
 				echo "<p>No sermon information for specified date</p></div>";
 			} else {
-				$sermonSql = "SELECT speakerFirst, speakerLast, sermonTitle, filePath, serviceDay, serviceMonth, isVideo
-							  FROM sermons
-							  INNER JOIN services ON ( sermons.service_id = services.service_id ) 
-							  WHERE serviceYear = " . $sermonYear . " ORDER BY serviceMonth DESC, serviceDay DESC";
-				$sermonResult = mysql_query($sermonSql);
-				while($sermonValues = mysql_fetch_assoc($sermonResult)){	
-					echo "<p><a href='get-sermon.php?year=" . $sermonYear . "&month=" . $sermonValues['serviceMonth'] . "&day=" . $sermonValues['serviceDay'] . "' class='sermon-audio sermon-link'>" . $sermonValues['serviceMonth'] . "/" . $sermonValues['serviceDay'] . "/" . $sermonYear . "</a></p>";
+				$sermons = $client->getItems('sermon', [
+					'order' => ['sermon_date' => 'DESC']
+				])->getData();
+				$sermonFirst = null;
+				foreach($sermons as $sermon){	
+					$timeStamp = strtotime($sermon['sermon_date']);
+					$year = date('Y', $timeStamp);
+					if ($sermonYear == $year) {
+						if (!$sermonFirst) {
+							$sermonFirst = $sermon;
+						}
+						echo "<p><a href='get-sermon.php?id=" . $sermon['id'] . "' class='sermon-audio sermon-link'>" . $sermon['sermon_title'] . " - " . date_format(date_create($sermon['sermon_date']), 'm/d/Y') . "</a></p>";
+					}
 				}
 					echo '</div>
 						  <div id="sermonInfo" class="col-sm-8 center-block sermon-audio">';
-						  mysql_data_seek($sermonResult, 0);
-						  $sermonFirst = mysql_fetch_assoc($sermonResult);
-						  if($sermonFirst['speakerFirst'] == 'Dan' && $sermonFirst['speakerLast'] == 'Lambertson'){
-							echo '<img data-toggle="tooltip" title="Speaker: ' . $sermonFirst['speakerFirst'] . ' ' . $sermonFirst['speakerLast'] . '" class="audio-image" src="/images/pastor-lambertson.png"';
-							if($sermonFirst['isVideo']){
-								echo 'style="display: none" />';
+							$speaker = $client->getItem('speaker', $sermonFirst['speaker']->getData()['id'])->getData();
+							$imageUrl = 'http://swbiblechapel.org' . $client->getFile($speaker['speaker_image']->getData()['id'])->getData()['url'];
+							echo '<div data-toggle="tooltip" title="Speaker: ' . $speaker['speaker_first'] . ' ' . $speaker['speaker_last'] . '" class="circle-crop center-circle-image audio-image-wrapper"><img class="circle-img audio-image" src="' . $imageUrl . '"';
+							if($sermonFirst['is_video']){
+								echo 'style="display: none" /></div>';
 							} else {
-								echo '/>';
+								echo '/></div>';
 							}
-						  } else {
-							echo '<img data-toggle="tooltip" title="Speaker: ' . $sermonFirst['speakerFirst'] . ' ' . $sermonFirst['speakerLast'] . '" class="audio-image" src="/images/default-user.png"';
-							if($sermonFirst['isVideo']){
-								echo 'style="display: none" />';
-							} else {
-								echo '/>';
-							}
-						  }
 						  
-						  echo "<h2 id='sermonTitle'>" . $sermonFirst['sermonTitle'] . "</h2>";
-						  if($sermonFirst['isVideo']){
+						  echo "<h2 id='sermonTitle'>" . $sermonFirst['sermon_title'] . "</h2>";
+						  if($sermonFirst['is_video']){
 						  	  echo "<video id='music' preload='true' controls>";
 							  echo "<source id='sermonId' src='";
-							  if(file_exists($_SERVER["DOCUMENT_ROOT"] . $sermonFirst['filePath'])){
-								echo $sermonFirst['filePath'];
+							  if(file_exists($_SERVER["DOCUMENT_ROOT"] . $sermonFirst['file_path'])){
+								echo $sermonFirst['file_path'];
 							  } else {
-								echo $sermonFirst['filePath'];
+								echo $sermonFirst['file_path'];
 							  }
 							  echo "' type='video/mp4'>";
 							  echo "<p><strong>Sorry</strong>, your browser does not support the audio element. Please update your browser.</p></video>";
 						  } else {
 							  echo "<audio id='music' preload='true'>";
 							  echo "<source id='sermonId' src='";
-							  if(file_exists($_SERVER["DOCUMENT_ROOT"] . $sermonFirst['filePath'])){
-								echo $sermonFirst['filePath'];
+							  if(file_exists($_SERVER["DOCUMENT_ROOT"] . $sermonFirst['file_path'])){
+								echo $sermonFirst['file_path'];
 							  } else {
-								echo "";
+								echo $sermonFirst['file_path'];
 							  }
 							  echo "' type='audio/mpeg'>";
 							  echo "<p><strong>Sorry</strong>, your browser does not support the audio element. Please update your browser.</p></audio>";

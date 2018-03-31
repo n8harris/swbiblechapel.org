@@ -1,5 +1,5 @@
 <?php
-$db = mysql_connect("localhost:33060","homestead","secret");
+$db = @mysql_connect("localhost","homestead","secret");
 if (!$db) {
 	die('Could not connect: ' . mysql_error());
 }

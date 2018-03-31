@@ -132,7 +132,7 @@ $('.carousel-control.left').on('click', function(){
 
   $(window).load(function() {
 	setTimeout(function(){
-	    initialize();
+	  initialize();
 		$('.main-container').fadeIn(1000);
 		$("#loaderImage").fadeOut(1000);
 		$('.carousel').carousel({
@@ -156,22 +156,8 @@ $('.carousel-control.left').on('click', function(){
   $('.waterboro-info a').contents().unwrap();
   
   $('.contact-person').click(function(){
-	if(this.id == "pastor-dan-contact"){
-		document.getElementById('inputContact').selectedIndex = 1;
-	} else if(this.id == "corriveau-contact"){
-		document.getElementById('inputContact').selectedIndex = 3;
-	} else if(this.id == "hammond-contact"){
-		document.getElementById('inputContact').selectedIndex = 4;
-	} else if(this.id == "rundgren-contact"){
-		document.getElementById('inputContact').selectedIndex = 7;
-	} else if($(this).hasClass('secretary-contact') || this.id == 'secretary-contact'){
-		document.getElementById('inputContact').selectedIndex = 0;
-	} else if(this.id == "johnson-contact"){
-		document.getElementById('inputContact').selectedIndex = 5;
-	} else if(this.id == "obrien-contact"){
-		document.getElementById('inputContact').selectedIndex = 6;
-	}
-
+		var email = $(this).data('contact-email');
+		document.getElementById('inputContact').value = email;
   });
   
   $('#contact-modal').on('shown.bs.modal', function() {
@@ -677,7 +663,7 @@ $("#wedding-form").submit(function() {
 					var elements = data.split('|');
 					$('#sermonInfo').hide();
 					$('#sermonTitle').empty();
-					$('.audio-image').attr('data-original-title', "Speaker: " + elements[0] + " " + elements[1]);
+					$('.audio-image-wrapper').attr('data-original-title', "Speaker: " + elements[0] + " " + elements[1]);
 					$('.audio-image').attr('src', elements[2]);
 					$('.oiplayer').remove();
 					if(elements[5]){
@@ -689,7 +675,7 @@ $("#wedding-form").submit(function() {
 						}
 						$('#sermonInfo').append('<video id="music" preload="true" controls></video>');
 						$('#music').append('<source id="sermonId" src="' + elements[4] + '" type="video/mp4">');
-						$('.audio-image').hide();
+						$('.audio-image-wrapper').hide();
 						
 					} else {
 						if($('.oiplayer').length){
@@ -702,7 +688,7 @@ $("#wedding-form").submit(function() {
 						$('#sermonInfo').append('<audio id="music" preload="true"></audio>');
 						$('#music').append('<source id="sermonId" src="' + elements[4] + '" type="audio/mpeg">');
 						$('body').oiplayer();
-						$('.audio-image').show();
+						$('.audio-image-wrapper').show();
 					}
 					$('#sermonTitle').append(elements[3]);
 					$('#sermonId').attr('src', elements[4]);

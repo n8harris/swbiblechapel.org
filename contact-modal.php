@@ -1,3 +1,6 @@
+<?php
+include ('directus-connect.php');
+?>
 <div class="modal fade" id="contact-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -12,12 +15,12 @@
 					<label for="inputContact" class="control-label col-xs-2">Recipient</label>
 					<div class="col-xs-10">
 						<select name="contact" class="form-control" id="inputContact">
-							<option value="secretary@swbiblechapel.org">Secretary</option>
-							<option value="pastor@swbiblechapel.org">Pastor</option>
-							<option value="prayerchain@swbiblechapel.org">Prayer Chain</option>
-							<option value="hammond@swbiblechapel.org">Gary Hammond</option>
-							<option value="johnson@swbiblechapel.org">Steve Johnson</option>
-							<option value="rundgren@swbiblechapel.org">Phil Rundgren</option>
+							<?php
+							$staff = $client->getItems('staff_members')->getData();
+							foreach($staff as $staffMember) {
+								echo '<option value="' . $staffMember['email'] . '">' . $staffMember['staff_first_name'] . ' ' . $staffMember['staff_last_name'] . '</option>';
+							}
+							?>
 						</select>
 					</div>
 				</div>

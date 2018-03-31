@@ -3,7 +3,7 @@
 		<div class="contact-information" id="contact">
           <div class="mail">
 		  <i class="fa fa-envelope fa-lg"></i>
-		  <a class="contact-person secretary-contact" data-toggle="modal" href="#contact-modal">secretary@swbiblechapel.org</a>
+		  <a class="contact-person" data-contact-email="secretary@swbiblechapel.org" data-toggle="modal" href="#contact-modal">secretary@swbiblechapel.org</a>
 		  </div>
           <div class="address">
 			<i class="fa fa-map-marker fa-lg"></i>

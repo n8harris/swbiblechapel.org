@@ -81,7 +81,7 @@
 			<div class="center-block col-sm-12 top-links">
 				<div>
 					<a class="dg-nav-link-btn go-to-map" href="#map_canvas" title="Church Location"><i class="fa fa-map-marker fa-lg"></i>Church Location</a>
-					<a data-toggle="modal" href="#contact-modal" class="dg-nav-link-btn secretary-contact contact-person" title="Contact Us"><i class="fa fa-envelope fa-lg"></i>Contact Us</a>
+					<a data-toggle="modal" href="#contact-modal" class="dg-nav-link-btn contact-person" data-contact-email="secretary@swbiblechapel.org" title="Contact Us"><i class="fa fa-envelope fa-lg"></i>Contact Us</a>
 				</div>
 			</div>
 		</div>

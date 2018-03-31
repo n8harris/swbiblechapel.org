@@ -1,40 +1,24 @@
 <?php
-include ('database-connect.php');
+include ('directus-connect.php');
 
-$day = (empty($_GET['day'])) ? '' : $_GET['day'];
-$month = (empty($_GET['month'])) ? '' : $_GET['month'];
-$year = (empty($_GET['year'])) ? '' : $_GET['year'];
+$sermonId = (empty($_GET['id'])) ? '' : $_GET['id'];
 
-if($day == '' || $month == '' || $year == ''){
+if($sermonId == ''){
 	echo 'nofill';
 } else {
-	$sql = "SELECT speakerFirst, speakerLast, sermonTitle, filePath, isVideo
-			  FROM sermons
-			  INNER JOIN services ON ( sermons.service_id = services.service_id ) 
-			  WHERE serviceYear = " . $year . " AND serviceMonth = " . $month . " AND serviceDay = " . $day;
+	$sermon = $client->getItem('sermon', $sermonId)->getData();
 	
-	$resultQuery = mysql_query($sql);
-	
-	if(mysql_num_rows($resultQuery) == 0){
+	if(!$sermon){
 		echo 'nofill';
 	} else {
-		$sermonValues = mysql_fetch_assoc($resultQuery);
-		$imgFile = '';
-		if($sermonValues['speakerFirst'] == 'Dan' && $sermonValues['speakerLast'] == 'Lambertson'){
-			$imgFile = "/images/pastor-lambertson.png";
-		} else {
-			$imgFile = "/images/default-user.png";
-		}
-		echo $sermonValues['speakerFirst'] . "|" . $sermonValues['speakerLast'] . "|" . $imgFile . "|" . $sermonValues['sermonTitle'] . "|";
-		if(isset($sermonValues['isVideo'])){
-			if(!$sermonValues['isVideo']){
-				if(file_exists($_SERVER["DOCUMENT_ROOT"] . $sermonValues['filePath'])){
-					echo $sermonValues['filePath'] . "|" . false;
-				} else {
-					echo "" . "|" . false;
-				}
+		$speaker = $client->getItem('speaker', $sermon['speaker']->getData()['id'])->getData();
+		$imgUrl = 'http://swbiblechapel.org' . $client->getFile($speaker['speaker_image']->getData()['id'])->getData()['url'];
+		echo $speaker['speaker_first'] . "|" . $speaker['speaker_last'] . "|" . $imgUrl . "|" . $sermon['sermon_title'] . "|";
+		if(isset($sermon['is_video'])){
+			if(!$sermon['is_video']){
+				echo $sermon['file_path'] . "|" . false;
 			} else {
-				echo $sermonValues['filePath'] . "|" . true;
+				echo $sermon['file_path'] . "|" . true;
 			}
 		}
 
