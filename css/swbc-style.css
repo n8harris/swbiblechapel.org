@@ -594,7 +594,7 @@ margin-bottom: -88px;
 width: 100%;
 }
 
-.featurette.staff p {
+.featurette p {
 	margin-bottom: 20px;
 	font-size: 16px;
 	font-weight: 200;
@@ -614,8 +614,12 @@ width: 100%;
 
 @media(min-width: 768px){
 
-	.featurette.staff p {
+	.featurette p, ol > li {
 		font-size: 21px;
+	}
+
+	.featurette h2 {
+		font-size: 50px;
 	}
 
 	.featurette.staff .circle-crop {
@@ -911,6 +915,7 @@ h2.underline-heading {
 
 @media(min-width: 434px){
 	.side-buttons{
+		margin-right: 5px;
 		display: inline;
 	}
 }

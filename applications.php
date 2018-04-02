@@ -4,13 +4,16 @@
 <?php include('carousel.php') ?>
 <?php include('wedding-application.php') ?>
 <?php include('membership-application.php') ?>
+<?php include('directus-connect.php'); ?>
 <div class="main-body">
 <h2 class="page-heading">Applications</h2>
 	<div class="container marketing">
 		<div class="featurette">
-			<p class="lead">
-				Below, you will find our membership application and our wedding ceremony application. If you plan to fill out a wedding ceremony application, please <a href="/documents/SWBC-Wedding-Policy.pdf" target="_blank">view our wedding policy</a> first.
-			</p>
+			<?php
+				$applications = $client->getItems('applications')->getData()[0];
+				$attachments = str_getcsv($applications['attachments']);
+				echo $applications['content'];
+			?>
 			<div class="application-buttons col-sm-12">
 				<h2>Online Applications</h2>
 				<p class="lead side-buttons"><a href="#wedding-application" data-toggle="modal" class="btn btn-lg btn-primary">Wedding Ceremony Application</a></p>
@@ -18,8 +21,14 @@
 			</div>
 			<div class="application-buttons col-sm-12">
 				<h2>Printable Forms (PDF)</h2>
-				<p class="lead side-buttons"><a href="/documents/SWBC-Membership-Application.pdf" target="_blank" class="btn btn-lg btn-primary">Membership Application (PDF)</a></p>
-				<p class="lead side-buttons"><a href="/documents/SWBC-Child-Protection-Policy.pdf" target="_blank" class="btn btn-lg btn-primary">Child Protection Policy (PDF)</a></p>
+				<?php
+				foreach($attachments as $attachment) {
+					if ($attachment) {
+						$file = $client->getFile($attachment)->getData();
+						echo '<p class="lead side-buttons"><a href="' . $file['url'] . '" target="_blank" class="btn btn-lg btn-primary">' . $file['title'] . '</a></p>';
+					}
+				}
+				?>
 			</div>
 		</div>
 	</div>
