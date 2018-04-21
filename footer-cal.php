@@ -2,7 +2,7 @@
 	<div class="footer">
 		  <div class="container">
 			<div class="col-sm-12 center-block">
-				<p>&copy; 2014 South Waterboro Bible Chapel&nbsp;  | <span data-toggle="tooltip" style="cursor:pointer" id="footer-tool" title="Need a website? Contact me at nharris@cedarville.edu" class="text-orange">&nbsp;Designed by Nate Harris</span></p>
+				<p>&copy; <?php echo date("Y") ?> South Waterboro Bible Chapel&nbsp;  | <span data-toggle="tooltip" style="cursor:pointer" id="footer-tool" title="Need a website? Contact me at nharris@cedarville.edu" class="text-orange">&nbsp;Designed by Nate Harris</span></p>
 			</div>
 		  </div>
 	</div>

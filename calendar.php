@@ -24,7 +24,6 @@
 <div class="container marketing feat-cal">
 	<div class="featurette-cal">
 		<?php
-		include('directus-connect.php');
 		$section = $client->getItems('calendar_events_section')->getData()[0];
 		$staffMemberEmail = $client->getItem('staff_members', $section['staff_member_to_contact']->getData()['id'])->getData()['email'];
 		echo '<h2 class="featurette-heading">' . $section['heading'] . '</span></h2>';

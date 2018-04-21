@@ -2,13 +2,14 @@
 <?php include('head.php') ?>
 <?php include('navigation.php') ?>
 <?php include('carousel.php') ?>
-<?php include('directus-connect.php'); ?>
 <div class="main-body">
-<h2 class="page-heading">Policies</h2>
+<?php
+	$policies = $client->getItems('policies')->getData()[0];
+?>
+<h2 class="page-heading"><?php echo $policies['title'] ?></h2>
 	<div class="container">
 		<div class="featurette">
 		<?php
-			$policies = $client->getItems('policies')->getData()[0];
 			$attachments = str_getcsv($policies['attachments']);
 			echo $policies['content'];
 			foreach($attachments as $attachment) {

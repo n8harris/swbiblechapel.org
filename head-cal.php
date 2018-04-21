@@ -1,3 +1,7 @@
+<?php
+include('Parsedown.php');
+include('directus-connect.php');
+?>
 <html>
 <head>
 <meta charset="utf-8">
@@ -37,7 +41,7 @@ body { font-family: 'Capsuula', sans-serif; background: url('./images/tweed.png'
 <script type="text/javascript" src="./scripts/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="./scripts/bootstrap.js"></script>
 <script type="text/javascript" src="./scripts/bootstrap-hover-dropdown.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIuK1lV6ahmav6yPkDenQU3pa2Daj6jrw"></script>
 <script type="text/javascript" src="./scripts/swbc-global.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
 <script src="./scripts/jquery.oiplayer.js" type="text/javascript"><!-- help ie --></script>

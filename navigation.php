@@ -102,60 +102,29 @@
 			<div class="collapse navbar-collapse" id="mainNavigation">
 				<div class="col-sm-offset-2 col-sm-9">
 					<ul class="nav navbar-nav">
-						<li class="dropdown">
-							<a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" href="#">About Us</a>
-							<ul class="dropdown-menu">
-									<li class="<?php echo ($navsection == 'constitution') ? 'current-drop' : ''; ?>"><a href="constitution">Statement of Purpose/Constitution</a></li>
-									<li class="<?php echo ($navsection == 'policies') ? 'current-drop' : ''; ?>"><a href="policies">Policies</a></li>
-									<li class="<?php echo ($navsection == 'applications') ? 'current-drop' : ''; ?>"><a href="applications">Applications</a></li>
-									<li class="<?php echo ($navsection == 'beliefs') ? 'current-drop' : ''; ?>"><a href="beliefs">Our Beliefs</a></li>
-									<li class="<?php echo ($navsection == 'our-staff') ? 'current-drop' : ''; ?>"><a href="our-staff">Our Staff</a></li>
-									<li class="<?php echo ($navsection == 'missionary-support') ? 'current-drop' : ''; ?>"><a href="missionary-support">Missionary Support</a></li>
-							</ul>
-						</li>
-						<li class="dropdown">
-							  <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" href="#" >Ministries</a>
-							  <ul class="dropdown-menu">
-								<li class="<?php echo ($navsection == 'youth') ? 'current-drop' : ''; ?>"><a href="youth-ministry">Youth Ministry</a></li>
-								<li class="<?php echo ($navsection == 'seniors') ? 'current-drop' : ''; ?>"><a href="senior-ministry">Senior Ministry</a></li>
-							  </ul>
-						</li>
-						<li class="no-drop <?php echo ($navsection == 'calendar') ? 'current' : ''; ?>"><a href="calendar">Calendar</a></li>
-						<?php
-						$resultSermons = mysql_query("SELECT DISTINCT serviceYear
-													  FROM services
-													  WHERE hasSermon = 1
-													  ORDER BY serviceYear DESC");
-						if(mysql_num_rows($resultSermons) == 0){
-							echo '<li class="no-drop"><a href="#">Sermons</a></li>';
-						} else {
-							echo '<li class="dropdown">';
-							echo '<a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" href="#" >Sermons</a><ul class="dropdown-menu">';
-							while($sermonYearValues=mysql_fetch_assoc($resultSermons)){
-								echo '<li class="'; 
-								if($navsection == $sermonYearValues['serviceYear']){
-									echo 'current-drop';
-								} else {
-									echo '';
-								}
-								echo '"><a href="sermons?year=' . $sermonYearValues['serviceYear'] . '">' . $sermonYearValues['serviceYear'] . '</a></li>';
+					<?php
+						$navItems = $client->getItems('navigation_item')->getData();
 
+						foreach($navItems as $navItem) {
+							if ($navItem['include_in_navbar']) {
+								if ($navItem['dropdown_links']) {
+									echo '<li class="dropdown">';
+									echo '<a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" href="#">' . $navItem['title'] . '</a>';
+									echo '<ul class="dropdown-menu">';
+									$links = json_decode($navItem['dropdown_links'], true);
+									if ($links) {
+										foreach($links as $key => $link) {
+											echo '<li><a href="' . $link . '">' . $key . '</a></li>';
+										}
+									}
+									echo '</ul>';
+									echo '</li>';
+								} else {
+									echo '<li class="no-drop"><a href="' . $navItem['link'] . '">' . $navItem['title'] . '</a></li>';
+								}
 							}
-							echo '</ul></li>';
 						}
-						?>
-						<li class="no-drop <?php echo ($navsection == 'bulletin') ? 'current' : ''; ?>">
-						<?php
-						$result = mysql_query("SELECT serviceDay, serviceMonth, serviceYear
-											   FROM services
-											   WHERE hasBulletin =1
-											   ORDER BY service_id DESC 
-											   LIMIT 0 , 1");
-						$date = mysql_fetch_array($result,MYSQL_ASSOC);
-						echo '<a href="bulletin?day=' . $date['serviceDay'] . '&month=' . $date['serviceMonth'] . '&year=' . $date['serviceYear'] . '">Bulletin</a>';
-						?>
-						</li>
-						<li class="no-drop contact-mobile"><a data-toggle="modal" href="#contact-modal">Contact Us</a></li>
+					?>
 					</ul>
 				</div>
 			</div>

@@ -1,8 +1,6 @@
 <?php $navsection = 'bulletin' ?>
 <?php include('head.php') ?>
 <?php include('carousel.php') ?>
-<?php include('directus-connect.php') ?>
-<?php include('Parsedown.php') ?>
 <div class="main-body">
 <h2 class="page-heading">Bulletin</h2>
 	<div class="container">

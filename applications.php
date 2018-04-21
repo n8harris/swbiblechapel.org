@@ -4,16 +4,14 @@
 <?php include('carousel.php') ?>
 <?php include('wedding-application.php') ?>
 <?php include('membership-application.php') ?>
-<?php include('directus-connect.php'); ?>
 <div class="main-body">
-<h2 class="page-heading">Applications</h2>
+<?php
+	$applications = $client->getItems('applications')->getData()[0];
+	$attachments = str_getcsv($applications['attachments']);
+?>
+<h2 class="page-heading"><?php echo $applications['title'] ?></h2>
 	<div class="container marketing">
 		<div class="featurette">
-			<?php
-				$applications = $client->getItems('applications')->getData()[0];
-				$attachments = str_getcsv($applications['attachments']);
-				echo $applications['content'];
-			?>
 			<div class="application-buttons col-sm-12">
 				<h2>Online Applications</h2>
 				<p class="lead side-buttons"><a href="#wedding-application" data-toggle="modal" class="btn btn-lg btn-primary">Wedding Ceremony Application</a></p>

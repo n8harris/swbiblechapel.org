@@ -2,8 +2,6 @@
 <?php include('head.php') ?>
 <?php include('navigation.php') ?>
 <?php include('carousel.php') ?>
-<?php include('directus-connect.php') ?>
-<?php include('Parsedown.php') ?>
 <div class="main-body">
 <h2 class="page-heading">Our Staff</h2>
 	<div class="container">

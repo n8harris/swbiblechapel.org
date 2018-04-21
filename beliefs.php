@@ -2,13 +2,14 @@
 <?php include('head.php') ?>
 <?php include('navigation.php') ?>
 <?php include('carousel.php') ?>
-<?php include('directus-connect.php'); ?>
 <div class="main-body">
-<h2 class="page-heading">Our Beliefs</h2>
+<?php
+	$beliefs = $client->getItems('our_beliefs')->getData()[0];
+?>
+<h2 class="page-heading"><?php echo $beliefs['title'] ?></h2>
 	<div class="container">
 		<div class="featurette">
 		<?php
-			$beliefs = $client->getItems('our_beliefs')->getData()[0];
 			$attachments = str_getcsv($beliefs['attachments']);
 			echo $beliefs['content'];
 			foreach($attachments as $attachment) {

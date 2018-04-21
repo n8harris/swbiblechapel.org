@@ -2,13 +2,14 @@
 <?php include('head.php') ?>
 <?php include('navigation.php') ?>
 <?php include('carousel.php') ?>
-<?php include('directus-connect.php'); ?>
 <div class="main-body">
-<h2 class="page-heading">Senior Ministry</h2>
+<?php
+	$seniorMinistry = $client->getItems('senior_ministry')->getData()[0];
+?>
+<h2 class="page-heading"><?php echo $seniorMinistry['title'] ?></h2>
 	<div class="container">
 		<div class="featurette">
 		<?php
-			$seniorMinistry = $client->getItems('senior_ministry')->getData()[0];
 			echo $seniorMinistry['content'];
 			$links = json_decode($seniorMinistry['links'], true);
 			if ($links) {

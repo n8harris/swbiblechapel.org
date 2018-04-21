@@ -6,7 +6,19 @@ $(document).ready(function() {
   $('#backToTop').removeClass('affix');
   $('#backToTop').addClass('affix-top');
   $('#errorLogin').hide();
-  $('#messageCreate').hide();
+	$('#messageCreate').hide();
+	
+	$('.navbar-nav .dropdown a').each(function(index, item){ 
+		if (window.location.href.includes(item['href'])) {
+			$(item).parent().addClass('current-drop');
+		}
+	});
+
+	$('.navbar-nav > li > a').each(function(index, item){ 
+		if (window.location.href.includes(item['href'])) {
+			$(item).parent().addClass('current');
+		}
+	});
   
   var win = $(window),
       bod = $('body'),

@@ -6,7 +6,6 @@ if(!empty($_GET['year'])){
 <?php include('head.php') ?>
 <?php include('navigation.php') ?>
 <?php include('carousel.php') ?>
-<?php include('directus-connect.php') ?>
 <div class="main-body">
 <h2 class="page-heading"><?php
 	if(!empty($_GET['year'])){
@@ -34,9 +33,13 @@ if(!empty($_GET['year'])){
 					$year = date('Y', $timeStamp);
 					if ($sermonYear == $year) {
 						if (!$sermonFirst) {
-							$sermonFirst = $sermon;
+							if ($sermon['file_path']){
+								$sermonFirst = $sermon;
+							}
 						}
-						echo "<p><a href='get-sermon.php?id=" . $sermon['id'] . "' class='sermon-audio sermon-link'>" . $sermon['sermon_title'] . " - " . date_format(date_create($sermon['sermon_date']), 'm/d/Y') . "</a></p>";
+						if ($sermon['file_path']) {
+							echo "<p><a href='get-sermon.php?id=" . $sermon['id'] . "' class='sermon-audio sermon-link'>" . $sermon['sermon_title'] . " - " . date_format(date_create($sermon['sermon_date']), 'm/d/Y') . "</a></p>";
+						}
 					}
 				}
 					echo '</div>
