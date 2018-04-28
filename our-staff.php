@@ -10,7 +10,7 @@
 		foreach($staff as $staffMember){
 			if ($staffMember['include_on_our_staff_page']) {
 				echo '<div class="featurette staff">';
-				$imgUrl = 'http://swbiblechapel.org' . $client->getFile($staffMember['picture']->getData()['id'])->getData()['url'];
+				$imgUrl = $client->getFile($staffMember['picture']->getData()['id'])->getData()['url'];
 				$staffMemberImagePull = 'pull-right';
 				if ($staffMember['pull_image_left']) {
 					$staffMemberImagePull = 'pull-left';

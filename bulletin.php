@@ -1,5 +1,6 @@
 <?php $navsection = 'bulletin' ?>
 <?php include('head.php') ?>
+<?php include('navigation.php') ?>
 <?php include('carousel.php') ?>
 <div class="main-body">
 <h2 class="page-heading">Bulletin</h2>

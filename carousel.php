@@ -24,6 +24,7 @@
           echo '<div class="item" data-interval="' . $item['slide_interval'] . '">';
         }
         $image = $client->getFile($item['image']->getData()['id'])->getData()['url'];
+        echo '<div class="carousel-background-img" style="background-image: url(http://swbiblechapel.org' . $image . ');"></div>';
         echo '<img src="' . $image . '" class="img-responsive">';
         echo '<div class="container">';
         echo '<div class="carousel-caption">';

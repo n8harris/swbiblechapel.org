@@ -457,7 +457,25 @@ ul.dg-links-login > li:before { content: ""; border-color: transparent #002967; 
 }
 
 .carousel-inner > .item > img {
-	margin-top: -400px;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		min-height: 400px;
+		transform: translate(-50%, -50%);
+}
+
+.carousel-inner > .item > .carousel-background-img {
+	background-size: cover;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	overflow: hidden;
+	-webkit-filter: blur(18px) brightness(85%);
+	filter: blur(18px) brightness(85%);
+	text-align: center;
 }
 
 @media (min-width: 768px) {

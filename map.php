@@ -18,7 +18,7 @@ $contactInfoContent = $locationInfo['contact_info'];
 			  
 			  <p>
               <?php
-
+                $Parsedown = new Parsedown();
                 echo $Parsedown->text($contactInfoContent);
               ?>
 			  </p>

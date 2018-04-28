@@ -6,7 +6,7 @@
 <?php
 	$youthMinistry = $client->getItems('youth_ministry')->getData()[0];
 ?>
-<h2 class="page-heading"><?php $youthMinistry['title'] ?></h2>
+<h2 class="page-heading"><?php echo $youthMinistry['title'] ?></h2>
 	<div class="container">
 		<div class="featurette">
 			<?php

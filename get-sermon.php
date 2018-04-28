@@ -12,7 +12,7 @@ if($sermonId == ''){
 		echo 'nofill';
 	} else {
 		$speaker = $client->getItem('speaker', $sermon['speaker']->getData()['id'])->getData();
-		$imgUrl = 'http://swbiblechapel.org' . $client->getFile($speaker['speaker_image']->getData()['id'])->getData()['url'];
+		$imgUrl = $client->getFile($speaker['speaker_image']->getData()['id'])->getData()['url'];
 		echo $speaker['speaker_first'] . "|" . $speaker['speaker_last'] . "|" . $imgUrl . "|" . $sermon['sermon_title'] . "|";
 		if(isset($sermon['is_video'])){
 			if(!$sermon['is_video']){

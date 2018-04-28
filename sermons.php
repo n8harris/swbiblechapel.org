@@ -45,7 +45,7 @@ if(!empty($_GET['year'])){
 					echo '</div>
 						  <div id="sermonInfo" class="col-sm-8 center-block sermon-audio">';
 							$speaker = $client->getItem('speaker', $sermonFirst['speaker']->getData()['id'])->getData();
-							$imageUrl = 'http://swbiblechapel.org' . $client->getFile($speaker['speaker_image']->getData()['id'])->getData()['url'];
+							$imageUrl = $client->getFile($speaker['speaker_image']->getData()['id'])->getData()['url'];
 							echo '<div data-toggle="tooltip" title="Speaker: ' . $speaker['speaker_first'] . ' ' . $speaker['speaker_last'] . '" class="circle-crop center-circle-image audio-image-wrapper"><img class="circle-img audio-image" src="' . $imageUrl . '"';
 							if($sermonFirst['is_video']){
 								echo 'style="display: none" /></div>';
